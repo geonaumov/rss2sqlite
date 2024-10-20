@@ -14,7 +14,7 @@ use log::{debug, info, warn, LevelFilter};
 use reqwest::blocking;
 use rss::Channel;
 use serde::Deserialize;
-use std::error::Error;
+// use std::error::Error;
 use std::fs;
 
 #[derive(Deserialize)]
@@ -33,14 +33,14 @@ fn load_config() -> Result<FeedConfig> {
     Ok(config)
 }
 
-fn fetch_rss_feed(url: &str) -> Result<Channel, Box<dyn Error>> {
+fn fetch_rss_feed(url: &str) -> Result<Channel> {
     debug!("Fetching RSS feed {}", url);
     let response = blocking::get(url)?.text()?;
     let channel = Channel::read_from(response.as_bytes())?;
     Ok(channel)
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<()> {
     let mut builder = Builder::from_default_env();
     builder.filter_level(LevelFilter::Info);
     builder.init();
@@ -51,11 +51,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     let conn = create_db(&config.dbfile)?;
     info!("Processing {} feeds", config.feeds.len());
     for feed in config.feeds.iter() {
-        let parsed_feed = fetch_rss_feed(feed)?;
+        let parsed_feed = fetch_rss_feed(feed).context("Failed to parse feed")?;
         info!("{} items from {}", parsed_feed.items().len(), feed);
-        insert_feed_items(&conn, &parsed_feed)?;
+        insert_feed_items(&conn, &parsed_feed).context("Failed to insert record")?;
     }
-    let _ = last(&conn);
+    let _ = last(&conn).context("Failed to query the database")?;
     info!("Finished");
     Ok(())
 }
