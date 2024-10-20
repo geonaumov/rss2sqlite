@@ -1,0 +1,18 @@
+{
+    "dbfile": "rss_feeds.db",
+    "feeds": [
+      "https://rss.slashdot.org/Slashdot/slashdotMain",
+      "http://www.engadget.com/rss.xml",
+      "https://rss.politico.com/economy.xml",
+      "https://rss.politico.com/energy.xml",
+      "https://www.aljazeera.com/xml/rss/all.xml",
+      "https://www.euractiv.com/?feed=mcfeed",
+      "https://cms.zerohedge.com/fullrss2.xml",
+      "https://www.france24.com/en/rss",
+      "https://rss.dw.com/rdf/rss-en-all",
+      "https://www.newsweek.com/rss",
+      "https://nypost.com/feed/",
+      "https://www.planetpython.org/rss20.xml"
+    ]
+  }
+  
