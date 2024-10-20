@@ -1,3 +1,4 @@
+// use anyhow::Error;
 use chrono::Local;
 use log::debug;
 use rss::Channel;
@@ -59,7 +60,7 @@ pub fn last(conn: &Connection) -> SqliteResult<()> {
         Ok((post_date, title))
     })?;
     for row in rows {
-        println!("{:?}", row); // No idea what ':?' is, the linter told me to do so
+        println!("{:?}", row?);
     }
-    Ok(()) // Return a tuple wrapped in Ok()
+    Ok(())
 }
