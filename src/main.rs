@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // Setup command arguments
     let matches = Command::new("RSS to SQLite")
-        .version("0.2.0")
+        .version("0.1.1")
         .author("Geo Naumov <george.naumov@outlook.com>")
         .about("A collector for RSS feeds written in Rust. Uses the SQLite database.")
         .subcommand(Command::new("update").about("Update the feeds"))
@@ -68,7 +68,6 @@ fn main() -> Result<(), Box<dyn Error>> {
                         insert_feed_items(&conn, &parsed_feed.unwrap()).context("Failed to insert record")?;
                     },
                     Err(..) => {
-                        // return Err(anyhow::anyhow!("Failed to open database: {}", e));
                         error!("Database error!");
                     }
                 }
