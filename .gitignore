@@ -2,3 +2,4 @@
 rss_feeds.db
 config.json
 launch.json
+Cargo.lock
