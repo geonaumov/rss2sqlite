@@ -1,2 +1,2 @@
-# rss2sqlite
-RSS to SQlite collector in Rust. Work in progress ...
+# rusqlite
+RSS to SQlite collector written in Rust. Work in progress.
